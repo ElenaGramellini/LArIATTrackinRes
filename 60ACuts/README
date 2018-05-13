@@ -1,0 +1,4 @@
+In this folder:
+TrueCrossSectionAngleCuts.py        --> does the true cross section plot as a function of the angle cut for 60A + 100A
+TrueCrossSectionAngleCuts60AOnly.py --> does the true cross section plot as a function of the angle cut for 60A only
+CheckTruth_60A_100A.py              --> checks that truth between 60A and 100A speak to each other

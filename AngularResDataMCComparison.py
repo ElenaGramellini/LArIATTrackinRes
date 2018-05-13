@@ -7,20 +7,25 @@ import argparse
 gStyle.SetOptStat(1101);
 
 # Get Files' names
-pionMC_FileName = "TrackingResolution_histoPionMC60A.root"
-data_FileName   = "TrackingResolution_histoData60A.root"
+pionMC_FileName     = "TrackingResolution_histoPionMC60A.root"
+data_FileName       = "TrackingResolution_histoData60A.root"
+pionMC_100AFileName = "/Volumes/Seagate/Elena/TPC/Pion100A_MC.root"
+data_100AFileName   = "/Volumes/Seagate/Elena/TPC/Data100A.root"
 
-
-
-pionMC_File   = TFile.Open(pionMC_FileName)
-data_File     = TFile.Open(data_FileName)
+pionMC_File       = TFile.Open(pionMC_FileName)
+data_File         = TFile.Open(data_FileName)
+pionMC100A_File   = TFile.Open(pionMC_100AFileName)
+data100A_File     = TFile.Open(data_100AFileName)
 
 # Get Interacting and Incident plots
 #treeName = "TrackingResoultion/trackResTree"
-treeName = "TRes/trackResTree"
+treeName     = "TRes/trackResTree"
 pionMC_Tree  = pionMC_File.Get(treeName)
 data_Tree    = data_File.Get(treeName)
 
+treeName100A     = "TrackingResoultion/trackResTree"
+pionMC100A_Tree  = pionMC100A_File.Get(treeName100A)
+data100A_Tree    = data100A_File.Get(treeName100A)
 
 cTracking = TCanvas("cTracking" ,"cTracking" ,200 ,10 ,1200 ,600)
 cTracking.Divide(2,1)
@@ -28,6 +33,11 @@ p1 = cTracking.cd(1)
 p1.SetGrid()
 pionMC_Tree.Draw("57.2958*(alpha_1Half+alpha_2Half)>>DegAngularResolutionMC(200,0,40)")
 data_Tree  .Draw("57.2958*(alpha_1Half+alpha_2Half)>>DegAngularResolutionData(200,0,40)")
+pionMC100A_Tree.Draw("57.2958*(alpha_1Half+alpha_2Half)>>DegAngularResolutionMC100A(200,0,40)")
+data100A_Tree  .Draw("57.2958*(alpha_1Half+alpha_2Half)>>DegAngularResolutionData100A(200,0,40)")
+
+DegAngularResolutionMC.Add(DegAngularResolutionMC100A)
+DegAngularResolutionData.Add(DegAngularResolutionData100A)
 
 DegAngularResolutionMC.SetLineColor(kRed)
 DegAngularResolutionMC.SetLineWidth(2)
@@ -54,7 +64,11 @@ p2 = cTracking.cd(2)
 p2.SetGrid()
 pionMC_Tree.Draw("alpha_1Half+alpha_2Half>>AngularResolutionMC(200,0,1)")
 data_Tree  .Draw("alpha_1Half+alpha_2Half>>AngularResolutionData(200,0,1)")
+pionMC100A_Tree.Draw("alpha_1Half+alpha_2Half>>AngularResolutionMC100A(200,0,1)")
+data100A_Tree  .Draw("alpha_1Half+alpha_2Half>>AngularResolutionData100A(200,0,1)")
 
+AngularResolutionMC.Add(AngularResolutionMC100A)
+AngularResolutionData.Add(AngularResolutionData100A)
 
 AngularResolutionMC.SetLineColor(kRed)
 AngularResolutionMC.SetLineWidth(2)
@@ -78,6 +92,11 @@ cTrackingDeg.SetGrid()
 
 pionMC_Tree.Draw("chi2_Full>>hChi2_Full_pionMC1(200,0,10)")
 data_Tree.Draw("chi2_Full>>hChi2_Full_data1(200,0,10)")
+pionMC100A_Tree.Draw("chi2_Full>>hChi2_Full_pionMC100A1(200,0,10)")
+data100A_Tree.Draw("chi2_Full>>hChi2_Full_data100A1(200,0,10)")
+
+hChi2_Full_pionMC1.Add(hChi2_Full_pionMC100A1)
+hChi2_Full_data1.Add(hChi2_Full_data100A1)
 
 hChi2_Full_pionMC = hChi2_Full_pionMC1.Clone("d_Avg_MC")
 hChi2_Full_pionMC.SetLineColor(kRed)
@@ -102,6 +121,14 @@ cTrackingDeg.Update()
 
 
 raw_input()  
+
+
+
+
+
+
+
+
 
 
 

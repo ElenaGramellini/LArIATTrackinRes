@@ -7,17 +7,16 @@ import argparse
 gStyle.SetOptStat(1101);
 
 # Get Files' names
-pionMC_FileName = "TrackingResolution_histoPionMC60A.root"
-data_FileName   = "TrackingResolution_histoData60A.root"
+
+pionMC_100AFileName = "/Volumes/Seagate/Elena/TPC/Pion100A_MC.root"
+data_100AFileName   = "/Volumes/Seagate/Elena/TPC/Data100A.root"
 
 
-
-pionMC_File   = TFile.Open(pionMC_FileName)
-data_File     = TFile.Open(data_FileName)
+pionMC_File   = TFile.Open(pionMC_100AFileName)
+data_File     = TFile.Open(data_100AFileName)
 
 # Get Interacting and Incident plots
-#treeName = "TrackingResoultion/trackResTree"
-treeName = "TRes/trackResTree"
+treeName = "TrackingResoultion/trackResTree"
 pionMC_Tree  = pionMC_File.Get(treeName)
 data_Tree    = data_File.Get(treeName)
 
